@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="nursery_category_action" model="ir.actions.act_window">
+        <field name="name">Plant Category</field>
+        <field name="res_model">nursery.category</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- must follow template standard, For example in record tag, it will be id field then model field and value of id is "view_yourModel_viewType" -->
+    <record id="view_nursery_category_form" model="ir.ui.view">
+        <field name="name">nursery.category.form</field>
+        <field name="model">nursery.category</field>
+        <field name="arch" type="xml">
+            <form string="Plant Category">
+                <sheet>
+                    <h1>
+                        <field name="name" placeholder="Plant Category Name"/>
+                    </h1>
+                    <h3>
+                        <field name="description" placeholder="Plant Category Description"/>
+                    </h3>
+                    <notebook>
+                        <page string="Plants">
+                            <field name="plant_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="price"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_nursery_category_tree" model="ir.ui.view">
+        <field name="name">nursery.category.tree</field>
+        <field name="model">nursery.category</field>
+        <field name="arch" type="xml">
+            <tree string="Plant Category">
+                <field name="name"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
+
+    <menuitem name="Plant Nursery"
+        id="nursery_root_menu"/>
+
+    <menuitem name="Plant Category"
+        id="nursery_plant_category_menu"
+        action="nursery_category_action"
+        parent="nursery_root_menu"/>
+</odoo>

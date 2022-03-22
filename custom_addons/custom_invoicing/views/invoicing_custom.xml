@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="invoicing_custom_action" model="ir.actions.act_window">
+        <field name="name">Invoicing</field>
+        <field name="res_model">invoicing.custom</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- must follow template standard, For example in record tag, it will be id field then model field and value of id is "view_yourModel_viewType" -->
+    <record id="view_invoicing_custom_form" model="ir.ui.view">
+        <field name="name">invoicing.custom.form</field>
+        <field name="model">invoicing.custom</field>
+        <field name="arch" type="xml">
+            <form string="Invoicing">
+                <sheet>
+                    <notebook>
+                        <page string="Invoicing">
+                            <group>
+                                <field name="order_id"/>
+                                <field name="customer_name"/>
+                                <field name="plant_names"/>
+                                <field name="total"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_invoicing_custom_tree" model="ir.ui.view">
+        <field name="name">invoicing.custom.tree</field>
+        <field name="model">invoicing.custom</field>
+        <field name="arch" type="xml">
+            <tree string="Invoicing">
+                <field name="order_id"/>
+                <field name="customer_name"/>
+                <field name="plant_names"/>
+                <field name="total"/>
+            </tree>
+        </field>
+    </record>
+
+    <menuitem name="Invoicing"
+        id="invoicing_root_menu"/>
+
+    <menuitem name="Create Invoicing"
+        id="invoicing_menu"
+        action="invoicing_custom_action"
+        parent="invoicing_root_menu"/>
+
+</odoo>

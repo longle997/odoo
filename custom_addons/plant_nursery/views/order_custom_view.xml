@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="nursery_order_custom_action" model="ir.actions.act_window">
+        <field name="name">order_custom</field>
+        <field name="res_model">order.custom</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new order_custom
+            </p>
+        </field>
+    </record>
+
+    <record id="view_nursery_order_custom_list" model="ir.ui.view">
+        <field name="name">nursery.order.custom.list</field>
+        <field name="model">order.custom</field>
+        <field name="arch" type="xml">
+            <tree string="order_customs">
+                <field name="id"/>
+                <field name="date_crate"/>
+                <field name="customer_id"/>
+                <field name="plant_ids"/>
+                <field name="order_items"/>
+                <field name="state" decoration-success="state=='sold'" decoration-info="state=='confirm'" decoration-danger="state=='cancel'"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_order_custom_form">
+        <field name="name">nursery.order.custom.form</field>
+        <field name="model">order.custom</field>
+        <field name="arch" type="xml">
+            <form string="Order Custom">
+                <header>
+                    <field name="state" widget="statusbar" options="{'clickable': '1'}" statusbar_visible="draft,confirm,cancel" attrs="{'invisible': [('state', '=', 'sold')]}"/>
+                    <button name="sold" type="object" string="Sold" attrs="{'invisible': [('state', '!=', 'confirm')]}"/>
+                </header>
+                <sheet>
+                    <group col="4">
+                        <group colspan="2">
+                            <field name="plant_ids">
+                                <tree>
+                                    <field name="category_id"/>
+                                    <field name="name"/>
+                                    <field name="price"/>
+                                </tree>
+                            </field>
+                            <field name="customer_id"/>
+                        </group>
+                        <group colspan="2">
+                            <field name="last_modification"/>
+                            <field name="order_items"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <menuitem name="Order Custom"
+        id="nursery_order_custom_menu"
+        action="nursery_order_custom_action"
+        parent="nursery_root_menu"/>
+
+</odoo>

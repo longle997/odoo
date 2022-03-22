@@ -1,0 +1,20 @@
+{
+    'name': 'Plant Nursery',
+    'version': '1.0',
+    'category': 'Tools',
+    'summary': 'Plants and customers management',
+    'depends': ['web'],
+    'data': [
+        'views/nursery_plant_category_view.xml',
+        'views/nursery_plant_view.xml',
+        'views/customer_view.xml',
+        'views/order_custom_view.xml',
+        'views/order_items_view.xml',
+        'views/order_view.xml',
+        'security/ir.model.access.csv',
+    ],
+    'css': [],
+    'installable': True,
+    'auto_install': False,
+    'application': True,
+}

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="nursery_order_item_action" model="ir.actions.act_window">
+        <field name="name">order_item</field>
+        <field name="res_model">order.item</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new order_item
+            </p>
+        </field>
+    </record>
+
+    <record id="view_nursery_order_item_list" model="ir.ui.view">
+        <field name="name">nursery.order.item.list</field>
+        <field name="model">order.item</field>
+        <field name="arch" type="xml">
+            <tree string="order_items">
+                <field name="plant_id"/>
+                <field name="order_id"/>
+                <field name="quantity"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_order_item_form">
+        <field name="name">nursery.order.item.form</field>
+        <field name="model">order.item</field>
+        <field name="arch" type="xml">
+            <form string="Order Custom">
+                <sheet>
+                    <group col="4">
+                        <group colspan="2">
+                            <field name="plant_id"/>
+                            <field name="order_id"/>
+                            <field name="quantity"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <menuitem name="Order Items"
+        id="nursery_order_item_menu"
+        action="nursery_order_item_action"
+        parent="nursery_root_menu"/>
+
+</odoo>

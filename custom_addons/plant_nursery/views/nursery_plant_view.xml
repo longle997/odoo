@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="nursery_plant_action" model="ir.actions.act_window">
+        <field name="name">Plants</field>
+        <field name="res_model">nursery.plant</field>
+        <field name="view_mode">kanban,tree,form</field>
+    </record>
+
+    <!-- must follow template standard, For example in record tag, it will be id field then model field and value of id is "view_yourModel_viewType" -->
+    <record id="view_nursery_plant_form" model="ir.ui.view">
+        <field name="name">nursery.plant.form</field>
+        <field name="model">nursery.plant</field>
+        <field name="arch" type="xml">
+            <form string="Plant">
+                <header>
+                    <!-- By assigning type="object" to our button, the Odoo framework will execute a Python method with name="increase_number_in_stock" on the given model. -->
+                    <button name="increase_number_in_stock" type="object" string="Add 1 in stock"/>
+                </header>
+                <sheet>
+                    <h1>
+                        <field name="name" placeholder="Plant Name"/>
+                    </h1>
+                    <notebook>
+                        <page string="Shop">
+                            <group>
+                                <field name="category_id"/>
+                                <field name="price"/>
+                                <field name="order_count"/>
+                                <field name="number_in_stock"/>
+                                <field name="image"/>
+                            </group>
+                        </page>
+                        <page string="Orders">
+                                <field name="order_ids"/>
+                        </page>
+                        <page string="Orders_custom">
+                            <field name="order_custom_ids">
+                                <tree>
+                                    <field name="date_crate"/>
+                                    <field name="customer_id"/>
+                                    <field name="state"/>
+                                    <field name="last_modification"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_nursery_plant_kanban" model="ir.ui.view">
+        <field name="name">nursery.plant.kanban</field>
+        <field name="model">nursery.plant</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <!-- You need to add the id field to the kanban view (in any view) if you will be referencing it. -->
+                <field name="id"/>
+                <field name="name"/>
+                <field name="price"/>
+                <field name="order_count"/>
+                <field name="number_in_stock"/>
+                <field name="image"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                            <div class="o_kanban_image">
+                                <img t-att-src="kanban_image('nursery.plant', 'image', record.id.raw_value)" alt="Plant Image"/>
+                            </div>
+                            <div class="oe_kanban_details">
+                                <ul>
+                                    <li>
+                                        <h3>Name: <field name="name"/></h3>
+                                    </li>
+                                    <li>
+                                        Category: <field name="category_id"/>
+                                    </li>
+                                    <li>
+                                        Price: <field name="price"/>
+                                    </li>
+                                    <li>
+                                        Order count: <field name="order_count"/>
+                                    </li>
+                                    <li>
+                                        Number in stock: <field name="number_in_stock"/>
+                                    </li>
+                                </ul>
+                                <!-- <div style="width:50px;"><field name="image" widget="image"/></div> -->
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_nursery_plant_tree" model="ir.ui.view">
+        <field name="name">nursery.plant.tree</field>
+        <field name="model">nursery.plant</field>
+        <field name="arch" type="xml">
+            <tree string="Plant">
+                <field name="name"/>
+                <field name="category_id"/>
+                <field name="price"/>
+                <field name="order_count"/>
+                <field name="number_in_stock"/>
+                <field name="order_custom_ids"/>
+                <field name="sequence" widget="handle"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_nursery_plant_search" model="ir.ui.view">
+            <field name="name">nursery.plant.search</field>
+            <field name="model">nursery.plant</field>
+            <field name="arch" type="xml">
+                <search string="Plant">
+                    <field name="name"/>
+                    <field name="category_id"/>
+                    <field name="price"/>
+                    <field name="order_count"/>
+                    <field name="number_in_stock"/>
+                    <separator/>
+                    <filter string="Price > 1" name="price" domain="[('price', '>', 1)]"/>
+                    <group expand="1" string="Group By">
+                        <filter string="Number in stock" name="number_in_stock" context="{'group_by':'number_in_stock'}"/>
+                        <filter string="Category" name="category_id" context="{'group_by':'category_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+    <menuitem name="Plant"
+        id="nursery_plant_menu"
+        action="nursery_plant_action"
+        parent="nursery_root_menu"/>
+</odoo>
